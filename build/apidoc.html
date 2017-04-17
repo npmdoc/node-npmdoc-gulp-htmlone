@@ -1,0 +1,235 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/amfe/or.htmlone.gulp"
+
+    >gulp-htmlone (v0.1.9)</a>
+</h1>
+<h4>combo js & css assests to html doc</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-htmlone">module gulp-htmlone</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-htmlone.gulp-htmlone">
+            function <span class="apidocSignatureSpan"></span>gulp-htmlone
+            <span class="apidocSignatureSpan">(opt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-htmlone.toString">
+            function <span class="apidocSignatureSpan">gulp-htmlone.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-htmlone.toString">module gulp-htmlone.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-htmlone.toString.toString">
+            function <span class="apidocSignatureSpan">gulp-htmlone.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-htmlone" id="apidoc.module.gulp-htmlone">module gulp-htmlone</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-htmlone.gulp-htmlone" id="apidoc.element.gulp-htmlone.gulp-htmlone">
+        function <span class="apidocSignatureSpan"></span>gulp-htmlone
+        <span class="apidocSignatureSpan">(opt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-htmlone = function (opt) {
+
+    var options = extend({
+        removeSelector: &#x27;[will-remove]&#x27;,
+        keepliveSelector: &#x27;[keeplive]&#x27;,
+        destDir: &#x27;./&#x27;,
+        coimport: true,
+        cssminify: true,
+        jsminify: true,
+        noAlicdn: false
+    }, (opt || {}));
+    options.domain = options.publish ? linkHost.online : linkHost.daily;
+    options.localError = false;
+    if (options.noAlicdn) {
+        options.domain = options.publish ? options.onlinePath : options.dailyPath;
+        if (!options.domain) {
+            options.localError = true;
+        }
+    } else {
+        if (!options.appName || !options.appVersion) {
+            options.localError = true;
+        }
+    }
+    var _todo = 0;
+    var _done = 0;
+
+    function transform(file, enc, cb) {
+        if (file.isNull()) return cb(null, file);
+        if (file.isStream()) return cb(new PluginError(pluginName, &#x27;Streaming not supported&#x27;));
+
+        var data;
+        var str = file.contents.toString(&#x27;utf8&#x27;);
+        var filepath = file.path;
+
+        _todo++;
+        dealScripts(filepath, str, options, function(html) {
+            var html = dealOtherLocalPath(html,options);
+            file.contents = new Buffer(html);
+            cb(null, file);
+
+            _done++;
+            if (_done === _todo) {
+                gutil.log(gutil.colors.cyan(&#x27;&#x3e;&#x3e; All html done!&#x27;));
+            }
+        });
+    }
+
+    return through.obj(transform);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-htmlone.toString" id="apidoc.element.gulp-htmlone.toString">
+        function <span class="apidocSignatureSpan">gulp-htmlone.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    var _done = 0;
+
+    function transform(file, enc, cb) {
+if (file.isNull()) return cb(null, file);
+if (file.isStream()) return cb(new PluginError(pluginName, &#x27;Streaming not supported&#x27;));
+
+var data;
+var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+var filepath = file.path;
+
+_todo++;
+dealScripts(filepath, str, options, function(html) {
+    var html = dealOtherLocalPath(html,options);
+    file.contents = new Buffer(html);
+    cb(null, file);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gulp-htmlone.toString" id="apidoc.module.gulp-htmlone.toString">module gulp-htmlone.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-htmlone.toString.toString" id="apidoc.element.gulp-htmlone.toString.toString">
+        function <span class="apidocSignatureSpan">gulp-htmlone.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    var _done = 0;
+
+    function transform(file, enc, cb) {
+if (file.isNull()) return cb(null, file);
+if (file.isStream()) return cb(new PluginError(pluginName, &#x27;Streaming not supported&#x27;));
+
+var data;
+var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+var filepath = file.path;
+
+_todo++;
+dealScripts(filepath, str, options, function(html) {
+    var html = dealOtherLocalPath(html,options);
+    file.contents = new Buffer(html);
+    cb(null, file);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
